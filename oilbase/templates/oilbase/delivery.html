@@ -1,0 +1,42 @@
+{% extends 'oilbase/base.html'%}
+
+{% block content %}
+
+{% for el in carousel|slice:":1" %}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>&laquo;{{ el.title }}&raquo;</h1>
+                    <p>{{ el.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for el in content %}
+<div class="container marketing">
+    <div class="row featurette">
+        <h3 class="text-left">{{ el.title }}</h3>
+            <div class="center-block">
+                <div class="panel-body">
+                    <div class="col-lg-4">
+                        <img src="{{ el.first_image.url }}" class="img-rounded" alt="Cinque Terre" width="304" height="236"> 
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="{{ el.second_image.url }}" class="img-rounded" alt="Cinque Terre" width="304" height="236"> 
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="{{ el.third_image.url }}" class="img-rounded" alt="Cinque Terre" width="304" height="236"> 
+                    </div>
+                </div>
+                <div class="text-left">{{ el.description }}</div>
+            </div>
+    </div>
+    <hr class="featurette-divider">
+{% endfor %}
+{% endblock content %}

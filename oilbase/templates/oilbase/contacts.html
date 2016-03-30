@@ -1,0 +1,162 @@
+{% extends 'oilbase/base.html'%}
+
+{% block content %}
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div id="map" class="map"></div>
+            <div class="container">
+                <div class="carousel-caption">
+                    <h2 itemprop="name"><b>&laquo;Связь с нами&raquo;</b></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<b>
+<div class="container marketing">
+	<div class="row featurette">
+		{% for el in contacts|slice:":1" %}
+        <h2 class="text-center">{{ el.name }}</h2>
+        <div class="center-block">
+            <div class="col-lg-6">
+                <div class="panel-body">
+                    <blockquote class="pull-right">
+                        <div class="form-group js-map" data-coords="{{ el.coordinats }}" data-address="{{ el.address }}" data-zoom="9">
+                            <p>{{ el.address }}</p>
+                        </div>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel-body">
+                    <blockquote>
+                        <div class="form-group">
+                            <p>Адрес электронной почты: {{ el.email }}</p>
+                            <p>Наш сайт: {{ el.site }}</p>
+                        </div>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <hr class="half-rule">
+
+    <div class="row featurette">
+    	<h2 class="text-center">График работы</h2>
+        <div class="center-block">
+        	{% for el in departs %}
+            <div class="col-lg-6">
+                <div class="panel-body">
+                {% if forloop.counter|divisibleby:2 %}
+                    <blockquote class="pull-left">
+                {% else %}
+    				<blockquote class="pull-right">
+    			{% endif %}
+                            <h4 class="lead"><b>{{ el.title }}</b></h4>
+                            <div class="text-center">{{ el.worktime }}</div>
+                    </blockquote>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>     
+
+	<hr class="half-rule">
+
+        
+    <div class="row featurette">
+        <h2 class="text-center">Центр поставок</h2>
+            <div class="center-block">
+            	{% for el in send_persons %}
+                <div class="col-lg-6">
+                    <div class="panel-body">
+                    {% if forloop.counter|divisibleby:2 %}
+                    	<blockquote>
+                    {% else %}
+                        <blockquote class="pull-right">
+                   	{% endif %}
+                            <dl class="dl-horizontal">
+                                <dt>{{ el.post }}</dt>
+                                <dd>{{ el.name }}</dd>
+                                <dd>Тел./факс: {{ el.phone }}</dd>
+                                <dd>E-mail: {{ el.email }}</dd>
+                            </dl>
+                        </blockquote>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+    </div>
+
+    <div class="row featurette">
+        <h2 class="text-center">Администрация</h2>
+            <div class="center-block">
+            	{% for el in main_persons %}
+                <div class="col-lg-6">
+                    <div class="panel-body">
+                    {% if forloop.counter|divisibleby:2 %}
+                    	<blockquote>
+                    {% else %}
+                        <blockquote class="pull-right">
+                   	{% endif %}
+                            <dl class="dl-horizontal">
+                                <dt>{{ el.post }}</dt>
+                                <dd>{{ el.name }}</dd>
+                                <dd>Тел./факс: {{ el.phone }}</dd>
+                                <dd>E-mail: {{ el.email }}</dd>
+                            </dl>
+                        </blockquote>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+    </div>
+
+    <hr class="half-rule">
+
+    <div class="row featurette">
+    	<div class="modal-body row">
+            <form class="form-signin" method="POST">{% csrf_token %}
+				{{ form.as_p }}
+                <h2 class="text-center">Обратная связь</h2>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="input-group col-md-11">
+                            <input class="form-control" type="text" id="name" placeholder="Ваше имя" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group col-md-11">
+                            <input class="form-control" type="email" id="email" placeholder="Ваш почтовый адрес" required>
+                        </div>
+                    </div>  
+
+                    <div class="form-group">
+                        <div class="input-group col-md-11">
+                            <input class="form-control" type="text" id="phone" placeholder="Ваш телефон" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <textarea rows="6" class="form-control" id="message" placeholder="Ваше сообщение"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group col-md-12">
+                            <button class="btn btn-inverse btn-lg btn-block" type="submit">Отправить</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</b>
+{% endblock content %}
