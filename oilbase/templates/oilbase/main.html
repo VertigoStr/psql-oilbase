@@ -12,9 +12,9 @@
     {% endfor %}
   </ol>
 
-  {% for el in carousel %}
   <div class="carousel-inner" role="listbox">
-  	{% if forloop.counter == 1 %}
+    {% for el in carousel %}
+    {% if forloop.counter == 1 %}
     	<div class="item active">
     {% else %}
     	<div class="item">
@@ -27,8 +27,8 @@
         </div>
       </div>
     </div>
+    {% endfor %}
   </div>
-  {% endfor %}
   <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>

@@ -122,36 +122,26 @@
     <div class="row featurette">
     	<div class="modal-body row">
             <form class="form-signin" method="POST">{% csrf_token %}
-				{{ form.as_p }}
                 <h2 class="text-center">Обратная связь</h2>
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <div class="input-group col-md-11">
-                            <input class="form-control" type="text" id="name" placeholder="Ваше имя" required>
-                        </div>
+                        <div class="input-group col-md-11">{{ form.name }}</div>
                     </div>
 
                     <div class="form-group">
-                        <div class="input-group col-md-11">
-                            <input class="form-control" type="email" id="email" placeholder="Ваш почтовый адрес" required>
-                        </div>
+                        <div class="input-group col-md-11">{{ form.email }}</div>
                     </div>  
 
                     <div class="form-group">
-                        <div class="input-group col-md-11">
-                            <input class="form-control" type="text" id="phone" placeholder="Ваш телефон" required>
-                        </div>
+                        <div class="input-group col-md-11">{{ form.phone }}</div>
                     </div>
                 </div>
 
                 <div class="col-lg-6">
-                    <div class="form-group">
-                        <textarea rows="6" class="form-control" id="message" placeholder="Ваше сообщение"></textarea>
-                    </div>
-
+                    <div class="form-group">{{ form.message }}</div>
                     <div class="form-group">
                         <div class="input-group col-md-12">
-                            <button class="btn btn-inverse btn-lg btn-block" type="submit">Отправить</button>
+                            <button class="del-msg btn btn-inverse btn-lg btn-block" type="submit">Отправить</button>
                         </div>
                     </div>
                 </div>
