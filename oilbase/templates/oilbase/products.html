@@ -1,0 +1,77 @@
+{% extends 'oilbase/base.html'%}
+
+{% block content %}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+  	{% for el in categories %}
+  		{% if forloop.counter == 1 %}
+    		<li data-target="#myCarousel" data-slide-to="{{ el.id }}" class="active"></li>
+    	{% else %}
+    		<li data-target="#myCarousel" data-slide-to="{{ el.id }}"></li>
+    	{% endif %}
+    {% endfor %}
+  </ol>
+  <div class="carousel-inner" role="listbox">
+    {% for el in categories %}
+    {% if forloop.counter == 1 %}
+    	<div class="item active" value="{{ el.id }}">
+    {% else %}
+    	<div class="item" value="{{ el.id }}">
+    {% endif %}
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1 value="{{ el.title }}">&laquo;{{ el.title }}&raquo;</h1>
+          <p>{{ el.description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</form>
+
+<div class="container marketing">
+    <div class="row row-offcanvas row-offcanvas-right">
+        <div class="row">
+            <div class="panel-body">
+                {% for el in products %}
+                	<div class="col-lg-6">
+                        <h3 class="text-center">{{ el.title }}</h3>
+                            <hr class="half-rule">
+                                <img src="{{ el.image.url }}" class="center-block" width="200" height="200"> 
+                            <hr class="half-rule">
+                        <dl class="dl-horizontal">
+                            <dt>Описание</dt>
+                            <dd>{{ el.description }}</dd>
+
+                            <dt>Тип доставки</dt>
+                            <dd>{{ el.send_type }}</dd>
+                            
+                            <dt>Емкость</dt>
+                            <dd>{{ el.content }}</dd>
+                            
+                            <dt>ГОСТ</dt>
+                            <dd>{{ el.gost }}</dd>
+                            
+                            <dt>Паспорт качества</dt>
+                            <dd>{{ el.docs }}</dd>
+                        
+                            <dt>Цена за единицу</dt>
+                            <dd>{{ el.cost }} рублей</dd>
+                        </dl>
+                        <hr class="half-rule">
+                	</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

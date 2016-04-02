@@ -38,3 +38,13 @@ def contacts_page(request):
 		form = CallBackForm()
 
 	return render(request, 'oilbase/contacts.html', {'contacts':contacts, 'departs':departs, 'main_persons':main_persons, 'send_persons':send_persons, 'callback':callback, 'form':form})	
+
+
+def products_page(request, num="Керосин"):
+	categories = models.Categories.objects.all()
+	answer = request.POST.get('myCarousel')
+	print(answer)
+	answer = models.Categories.objects.filter(title=answer)
+	products = models.Products.objects.filter(category=answer)
+
+	return render(request, 'oilbase/products.html', {'products':products, 'categories':categories})
