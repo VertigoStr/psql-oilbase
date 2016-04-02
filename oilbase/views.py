@@ -42,8 +42,8 @@ def contacts_page(request):
 
 def products_page(request, num="Керосин"):
 	categories = models.Categories.objects.all()
-	answer = request.POST.get('myCarousel')
-	print(answer)
+	answer = 'Бензин' # request.POST.get('myCarousel')
+	# print(answer)
 	answer = models.Categories.objects.filter(title=answer)
 	products = models.Products.objects.filter(category=answer)
 
