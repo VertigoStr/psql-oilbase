@@ -6,5 +6,6 @@ urlpatterns = [
 	url(r'^delivery/$', views.delivery_page, name='delivery_page'),
 	url(r'^dilers/$', views.dilers_page, name='dilers_page'),
 	url(r'^contacts/$', views.contacts_page, name='contacts_page'),
+	url(r'^products/(?P<pk>\d+)/$', views.products_page, name='products_page'),
 	url(r'^products/$', views.products_page, name='products_page'),
 ]

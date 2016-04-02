@@ -40,11 +40,19 @@ def contacts_page(request):
 	return render(request, 'oilbase/contacts.html', {'contacts':contacts, 'departs':departs, 'main_persons':main_persons, 'send_persons':send_persons, 'callback':callback, 'form':form})	
 
 
-def products_page(request, num="Керосин"):
-	categories = models.Categories.objects.all()
-	answer = 'Бензин' # request.POST.get('myCarousel')
-	# print(answer)
-	answer = models.Categories.objects.filter(title=answer)
-	products = models.Products.objects.filter(category=answer)
+def products_page(request, pk="1"):
+	categories = models.Categories.objects.all().order_by("id")
+	
+	length = len(categories)
+	if int(pk) in range(1, length + 1):
+		next_el = int(pk) + 1
+		if next_el > length:
+			next_el = 1
+		prev_el = int(pk) - 1
+		if prev_el < 1:
+			prev_el = length
 
-	return render(request, 'oilbase/products.html', {'products':products, 'categories':categories})
+	indexes = {'current':int(pk), 'next':int(next_el), 'prev':int(prev_el)}
+	products = models.Products.objects.filter(category=pk)
+
+	return render(request, 'oilbase/products.html', {'products':products, 'categories':categories, 'item':indexes})

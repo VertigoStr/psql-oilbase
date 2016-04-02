@@ -33,13 +33,13 @@
                 <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Продукция<span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="{% url 'products_page' %}">Керосин</a></li>
-                    <li><a href="{% url 'products_page' %}">Бензин</a></li>
-                    <li><a href="{% url 'products_page' %}">Мазут</a></li>
-                    <li><a href="{% url 'products_page' %}">Сжиженный газ</a></li>
-                    <li><a href="{% url 'products_page' %}">Масло</a></li>
-                    <li><a href="{% url 'products_page' %}">Нефть</a></li>
-                    <li><a href="{% url 'products_page' %}">ГСМ</a></li>
+                    <li><a href="{% url 'products_page' pk=1 %}">Керосин</a></li>
+                    <li><a href="{% url 'products_page' pk=2 %}">Бензин</a></li>
+                    <li><a href="{% url 'products_page' pk=3 %}">Мазут</a></li>
+                    <li><a href="{% url 'products_page' pk=4 %}">Сжиженный газ</a></li>
+                    <li><a href="{% url 'products_page' pk=5 %}">Масло</a></li>
+                    <li><a href="{% url 'products_page' pk=6 %}">Нефть</a></li>
+                    <li><a href="{% url 'products_page' pk=7 %}">ГСМ</a></li>
                   </ul>
                 </li>
                 <li><a href="{% url 'dilers_page' %}">Дилеры</a></li>

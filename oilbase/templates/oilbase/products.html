@@ -1,22 +1,24 @@
 {% extends 'oilbase/base.html'%}
 
 {% block content %}
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
+<div class="carousel slide">
   <ol class="carousel-indicators">
   	{% for el in categories %}
-  		{% if forloop.counter == 1 %}
-    		<li data-target="#myCarousel" data-slide-to="{{ el.id }}" class="active"></li>
+  		<a role="button" data-slide="prev" type="submit" method="Post" href="{% url 'products_page' pk=el.id %}">
+  		{% if forloop.counter == item.current %}
+    		<li data-slide-to="{{ el.id }}" class="active"></li>
     	{% else %}
-    		<li data-target="#myCarousel" data-slide-to="{{ el.id }}"></li>
+    		<li data-slide-to="{{ el.id }}"></li>
     	{% endif %}
+    	</a>
     {% endfor %}
   </ol>
   <div class="carousel-inner" role="listbox">
     {% for el in categories %}
-    {% if forloop.counter == 1 %}
-    	<div class="item active" value="{{ el.id }}">
+    {% if forloop.counter == item.current %}
+    	<div class="item active">
     {% else %}
-    	<div class="item" value="{{ el.id }}">
+    	<div class="item">
     {% endif %}
       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==">
       <div class="container">
@@ -28,11 +30,11 @@
     </div>
     {% endfor %}
   </div>
-  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+  <a class="left carousel-control" role="button" data-slide="prev" href="{% url 'products_page' pk=item.prev %}">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+  <a class="right carousel-control" role="button" data-slide="next" href="{% url 'products_page' pk=item.next %}">
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
