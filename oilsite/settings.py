@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'oilsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'oilbase',
+        'NAME': 'pg_oilbase',
         'USER': 'Admin',
         'PASSWORD': 'password',
         'HOST': '',

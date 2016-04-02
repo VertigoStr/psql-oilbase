@@ -25,7 +25,7 @@ admin.site.register(models.Categories, Categories)
 
 class Products(admin.ModelAdmin):
 	list_display = ('title', 'img', 'description', 'send_type', 'content', 'gost', 'docs', 'cost', 'category',)
-	list_filter = ['category', ]
+	list_filter = ['category', 'send_type']
 	ordering = ('title',)
 
 admin.site.register(models.Products, Products)

@@ -53,6 +53,9 @@ class Deliver(models.Model):
 	img_third.short_description = 'Изображение №3'
 	img_third.allow_tags = True
 
+	def __str__(self):
+		return self.title
+
 
 class Categories(models.Model):
 	title = models.CharField(max_length=100, verbose_name='Имя')
@@ -70,11 +73,11 @@ class Products(models.Model):
 	title = models.CharField(max_length=100, verbose_name='Имя')
 	image = models.ImageField(upload_to=u'./media/img/', verbose_name='Изображение')
 	description = models.CharField(max_length=250, verbose_name='Описание')
-	send_type = models.CharField(max_length=100, verbose_name='Тип доставки')
 	content = models.CharField(max_length=100, verbose_name='Емкость')
 	gost = models.CharField(max_length=250, verbose_name='ГОСТ')
 	docs = models.CharField(max_length=250, verbose_name='Паспорт качества')
 	cost = models.IntegerField(verbose_name='Цена')
+	send_type = models.ForeignKey('Deliver', on_delete=models.CASCADE, verbose_name='Тип доставки')
 	category = models.ForeignKey('Categories', on_delete=models.CASCADE, verbose_name='Категория')
 
 	class Meta:

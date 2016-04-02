@@ -1,0 +1,1831 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO "Admin";
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO "Admin";
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO "Admin";
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO "Admin";
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO "Admin";
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO "Admin";
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO "Admin";
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO "Admin";
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO "Admin";
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO "Admin";
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO "Admin";
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO "Admin";
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO "Admin";
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO "Admin";
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO "Admin";
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO "Admin";
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO "Admin";
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO "Admin";
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO "Admin";
+
+--
+-- Name: names; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE names (
+    id integer NOT NULL,
+    name text,
+    age integer
+);
+
+
+ALTER TABLE public.names OWNER TO "Admin";
+
+--
+-- Name: names_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE names_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.names_id_seq OWNER TO "Admin";
+
+--
+-- Name: names_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE names_id_seq OWNED BY names.id;
+
+
+--
+-- Name: oilbase_callback; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE oilbase_callback (
+    id integer NOT NULL,
+    name character varying(200) NOT NULL,
+    phone character varying(20) NOT NULL,
+    email character varying(254) NOT NULL,
+    message text NOT NULL
+);
+
+
+ALTER TABLE public.oilbase_callback OWNER TO "Admin";
+
+--
+-- Name: oilbase_callback_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE oilbase_callback_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oilbase_callback_id_seq OWNER TO "Admin";
+
+--
+-- Name: oilbase_callback_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE oilbase_callback_id_seq OWNED BY oilbase_callback.id;
+
+
+--
+-- Name: oilbase_categories; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE oilbase_categories (
+    id integer NOT NULL,
+    title character varying(100) NOT NULL,
+    description text NOT NULL
+);
+
+
+ALTER TABLE public.oilbase_categories OWNER TO "Admin";
+
+--
+-- Name: oilbase_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE oilbase_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oilbase_categories_id_seq OWNER TO "Admin";
+
+--
+-- Name: oilbase_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE oilbase_categories_id_seq OWNED BY oilbase_categories.id;
+
+
+--
+-- Name: oilbase_contact; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE oilbase_contact (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    address character varying(250) NOT NULL,
+    coordinats character varying(100),
+    site character varying(20) NOT NULL,
+    email character varying(254) NOT NULL
+);
+
+
+ALTER TABLE public.oilbase_contact OWNER TO "Admin";
+
+--
+-- Name: oilbase_contact_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE oilbase_contact_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oilbase_contact_id_seq OWNER TO "Admin";
+
+--
+-- Name: oilbase_contact_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE oilbase_contact_id_seq OWNED BY oilbase_contact.id;
+
+
+--
+-- Name: oilbase_deliver; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE oilbase_deliver (
+    id integer NOT NULL,
+    title character varying(100) NOT NULL,
+    description text NOT NULL,
+    first_image character varying(100) NOT NULL,
+    second_image character varying(100) NOT NULL,
+    third_image character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.oilbase_deliver OWNER TO "Admin";
+
+--
+-- Name: oilbase_deliver_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE oilbase_deliver_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oilbase_deliver_id_seq OWNER TO "Admin";
+
+--
+-- Name: oilbase_deliver_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE oilbase_deliver_id_seq OWNED BY oilbase_deliver.id;
+
+
+--
+-- Name: oilbase_departaments; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE oilbase_departaments (
+    id integer NOT NULL,
+    title character varying(100) NOT NULL,
+    worktime character varying(15)[] NOT NULL
+);
+
+
+ALTER TABLE public.oilbase_departaments OWNER TO "Admin";
+
+--
+-- Name: oilbase_departaments_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE oilbase_departaments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oilbase_departaments_id_seq OWNER TO "Admin";
+
+--
+-- Name: oilbase_departaments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE oilbase_departaments_id_seq OWNED BY oilbase_departaments.id;
+
+
+--
+-- Name: oilbase_dilers; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE oilbase_dilers (
+    id integer NOT NULL,
+    city character varying(50) NOT NULL,
+    address character varying(250) NOT NULL,
+    phone character varying(20) NOT NULL,
+    coordinats character varying(100),
+    email character varying(254) NOT NULL
+);
+
+
+ALTER TABLE public.oilbase_dilers OWNER TO "Admin";
+
+--
+-- Name: oilbase_dilers_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE oilbase_dilers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oilbase_dilers_id_seq OWNER TO "Admin";
+
+--
+-- Name: oilbase_dilers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE oilbase_dilers_id_seq OWNED BY oilbase_dilers.id;
+
+
+--
+-- Name: oilbase_mainpagecontent; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE oilbase_mainpagecontent (
+    id integer NOT NULL,
+    title character varying(100) NOT NULL,
+    description text NOT NULL,
+    img character varying(100)
+);
+
+
+ALTER TABLE public.oilbase_mainpagecontent OWNER TO "Admin";
+
+--
+-- Name: oilbase_mainpagecontent_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE oilbase_mainpagecontent_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oilbase_mainpagecontent_id_seq OWNER TO "Admin";
+
+--
+-- Name: oilbase_mainpagecontent_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE oilbase_mainpagecontent_id_seq OWNED BY oilbase_mainpagecontent.id;
+
+
+--
+-- Name: oilbase_personal; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE oilbase_personal (
+    id integer NOT NULL,
+    name character varying(200) NOT NULL,
+    post character varying(100) NOT NULL,
+    phone character varying(20) NOT NULL,
+    email character varying(254) NOT NULL,
+    departament_id integer NOT NULL
+);
+
+
+ALTER TABLE public.oilbase_personal OWNER TO "Admin";
+
+--
+-- Name: oilbase_personal_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE oilbase_personal_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oilbase_personal_id_seq OWNER TO "Admin";
+
+--
+-- Name: oilbase_personal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE oilbase_personal_id_seq OWNED BY oilbase_personal.id;
+
+
+--
+-- Name: oilbase_products; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE oilbase_products (
+    id integer NOT NULL,
+    title character varying(100) NOT NULL,
+    image character varying(100) NOT NULL,
+    description character varying(250) NOT NULL,
+    content character varying(100) NOT NULL,
+    gost character varying(250) NOT NULL,
+    docs character varying(250) NOT NULL,
+    cost integer NOT NULL,
+    category_id integer NOT NULL,
+    send_type_id integer NOT NULL
+);
+
+
+ALTER TABLE public.oilbase_products OWNER TO "Admin";
+
+--
+-- Name: oilbase_products_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE oilbase_products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oilbase_products_id_seq OWNER TO "Admin";
+
+--
+-- Name: oilbase_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE oilbase_products_id_seq OWNED BY oilbase_products.id;
+
+
+--
+-- Name: oilbase_slogans; Type: TABLE; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE TABLE oilbase_slogans (
+    id integer NOT NULL,
+    title character varying(100) NOT NULL,
+    description text NOT NULL,
+    page character varying(100)
+);
+
+
+ALTER TABLE public.oilbase_slogans OWNER TO "Admin";
+
+--
+-- Name: oilbase_slogans_id_seq; Type: SEQUENCE; Schema: public; Owner: Admin
+--
+
+CREATE SEQUENCE oilbase_slogans_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oilbase_slogans_id_seq OWNER TO "Admin";
+
+--
+-- Name: oilbase_slogans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Admin
+--
+
+ALTER SEQUENCE oilbase_slogans_id_seq OWNED BY oilbase_slogans.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY names ALTER COLUMN id SET DEFAULT nextval('names_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_callback ALTER COLUMN id SET DEFAULT nextval('oilbase_callback_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_categories ALTER COLUMN id SET DEFAULT nextval('oilbase_categories_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_contact ALTER COLUMN id SET DEFAULT nextval('oilbase_contact_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_deliver ALTER COLUMN id SET DEFAULT nextval('oilbase_deliver_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_departaments ALTER COLUMN id SET DEFAULT nextval('oilbase_departaments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_dilers ALTER COLUMN id SET DEFAULT nextval('oilbase_dilers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_mainpagecontent ALTER COLUMN id SET DEFAULT nextval('oilbase_mainpagecontent_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_personal ALTER COLUMN id SET DEFAULT nextval('oilbase_personal_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_products ALTER COLUMN id SET DEFAULT nextval('oilbase_products_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_slogans ALTER COLUMN id SET DEFAULT nextval('oilbase_slogans_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add Дилеры	7	add_dilers
+20	Can change Дилеры	7	change_dilers
+21	Can delete Дилеры	7	delete_dilers
+22	Can add Поставка	8	add_deliver
+23	Can change Поставка	8	change_deliver
+24	Can delete Поставка	8	delete_deliver
+25	Can add Категории	9	add_categories
+26	Can change Категории	9	change_categories
+27	Can delete Категории	9	delete_categories
+28	Can add Товар	10	add_products
+29	Can change Товар	10	change_products
+30	Can delete Товар	10	delete_products
+31	Can add Отдел	11	add_departaments
+32	Can change Отдел	11	change_departaments
+33	Can delete Отдел	11	delete_departaments
+34	Can add Персонал	12	add_personal
+35	Can change Персонал	12	change_personal
+36	Can delete Персонал	12	delete_personal
+37	Can add Обратная связь	13	add_callback
+38	Can change Обратная связь	13	change_callback
+39	Can delete Обратная связь	13	delete_callback
+40	Can add Слоган	14	add_slogans
+41	Can change Слоган	14	change_slogans
+42	Can delete Слоган	14	delete_slogans
+43	Can add Контакт	15	add_contact
+44	Can change Контакт	15	change_contact
+45	Can delete Контакт	15	delete_contact
+46	Can add Элемент	16	add_mainpagecontent
+47	Can change Элемент	16	change_mainpagecontent
+48	Can delete Элемент	16	delete_mainpagecontent
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 48, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$20000$qUuOMbPBUb2M$LOI9pTO5gAyhblHOlfuRpMN5eDVE6hrxHKHirUCVvLo=	2016-04-02 11:49:16.889836+00	t	Admin			admin@admin.com	t	t	2016-04-02 11:49:09.497925+00
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 1, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2016-04-02 11:52:14.662338+00	1	MainPageContent object	1		16	1
+2	2016-04-02 11:52:45.043701+00	2	MainPageContent object	1		16	1
+3	2016-04-02 11:53:02.637834+00	3	MainPageContent object	1		16	1
+4	2016-04-02 11:53:41.121401+00	1	Slogans object	1		14	1
+5	2016-04-02 11:53:57.416525+00	2	Slogans object	1		14	1
+6	2016-04-02 11:54:12.686746+00	3	Slogans object	1		14	1
+7	2016-04-02 11:54:32.90116+00	4	Slogans object	1		14	1
+8	2016-04-02 11:55:08.888141+00	4	Slogans object	2	Изменен title.	14	1
+9	2016-04-02 11:55:13.038418+00	3	Slogans object	2	Изменен title.	14	1
+10	2016-04-02 11:55:17.479315+00	1	Slogans object	2	Изменен title.	14	1
+11	2016-04-02 11:55:23.954731+00	2	Slogans object	2	Изменен title.	14	1
+12	2016-04-02 11:56:02.375348+00	1	Железнодорожный транспорт	1		8	1
+13	2016-04-02 11:56:19.542878+00	2	Автомобильный транспорт	1		8	1
+14	2016-04-02 11:56:41.139794+00	3	Морской транспорт	1		8	1
+15	2016-04-02 11:59:19.348525+00	1	Dilers object	1		7	1
+16	2016-04-02 11:59:52.853742+00	2	Dilers object	1		7	1
+17	2016-04-02 12:00:29.147322+00	3	Dilers object	1		7	1
+18	2016-04-02 12:01:00.471112+00	4	Dilers object	1		7	1
+19	2016-04-02 12:01:33.970371+00	5	Dilers object	1		7	1
+20	2016-04-02 12:02:00.209652+00	6	Dilers object	1		7	1
+21	2016-04-02 12:02:31.760394+00	7	Dilers object	1		7	1
+22	2016-04-02 12:03:45.786802+00	1	Бензин	1		9	1
+23	2016-04-02 12:04:05.964461+00	2	Керосин	1		9	1
+24	2016-04-02 12:04:22.985924+00	3	Мазут	1		9	1
+25	2016-04-02 12:05:30.950311+00	4	Природный газ	1		9	1
+26	2016-04-02 12:06:30.691495+00	5	Масла	1		9	1
+27	2016-04-02 12:07:12.750071+00	6	Нефть	1		9	1
+28	2016-04-02 12:07:50.941392+00	7	ГСМ	1		9	1
+29	2016-04-02 12:08:37.157397+00	1	Contact object	1		15	1
+30	2016-04-02 12:08:51.484066+00	1	Администрация	1		11	1
+31	2016-04-02 12:08:59.269321+00	2	Центр поставок	1		11	1
+32	2016-04-02 12:09:32.491058+00	1	Personal object	1		12	1
+33	2016-04-02 12:10:01.626682+00	2	Personal object	1		12	1
+34	2016-04-02 12:10:23.49552+00	3	Personal object	1		12	1
+35	2016-04-02 12:10:44.449385+00	4	Personal object	1		12	1
+36	2016-04-02 12:11:12.29423+00	5	Personal object	1		12	1
+37	2016-04-02 12:11:39.154672+00	6	Personal object	1		12	1
+38	2016-04-02 12:20:03.988458+00	1	Products object	1		10	1
+39	2016-04-02 12:21:27.958121+00	2	Products object	1		10	1
+40	2016-04-02 12:23:59.872658+00	3	Products object	1		10	1
+41	2016-04-02 12:24:37.585961+00	4	Products object	1		10	1
+42	2016-04-02 12:25:02.030813+00	5	Products object	1		10	1
+43	2016-04-02 12:25:54.144471+00	6	Products object	1		10	1
+44	2016-04-02 12:26:52.551892+00	6	Products object	2	Изменен title.	10	1
+45	2016-04-02 12:27:47.078261+00	7	Products object	1		10	1
+46	2016-04-02 12:32:08.923942+00	4	Сжиженный газ	2	Изменен title и description.	9	1
+47	2016-04-02 12:36:38.233825+00	8	Products object	1		10	1
+48	2016-04-02 12:38:25.076557+00	9	Products object	1		10	1
+49	2016-04-02 12:40:40.600692+00	10	Products object	1		10	1
+50	2016-04-02 12:41:37.257583+00	11	Products object	1		10	1
+51	2016-04-02 12:43:42.351582+00	12	Products object	1		10	1
+52	2016-04-02 12:45:42.583697+00	13	Products object	1		10	1
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 52, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	oilbase	dilers
+8	oilbase	deliver
+9	oilbase	categories
+10	oilbase	products
+11	oilbase	departaments
+12	oilbase	personal
+13	oilbase	callback
+14	oilbase	slogans
+15	oilbase	contact
+16	oilbase	mainpagecontent
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 16, true);
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2016-04-02 11:48:08.155273+00
+2	auth	0001_initial	2016-04-02 11:48:08.983443+00
+3	admin	0001_initial	2016-04-02 11:48:09.155322+00
+4	contenttypes	0002_remove_content_type_name	2016-04-02 11:48:09.233449+00
+5	auth	0002_alter_permission_name_max_length	2016-04-02 11:48:09.249075+00
+6	auth	0003_alter_user_email_max_length	2016-04-02 11:48:09.280327+00
+7	auth	0004_alter_user_username_opts	2016-04-02 11:48:09.295952+00
+8	auth	0005_alter_user_last_login_null	2016-04-02 11:48:09.311578+00
+9	auth	0006_require_contenttypes_0002	2016-04-02 11:48:09.327203+00
+10	oilbase	0001_initial	2016-04-02 11:48:10.186625+00
+11	sessions	0001_initial	2016-04-02 11:48:10.327279+00
+12	oilbase	0002_auto_20160402_1549	2016-04-02 11:49:55.278026+00
+\.
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('django_migrations_id_seq', 12, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+1itmazw36j1sl4i1uml4o6mjoznu3psi	ZTIxM2I1NmJmZDAzNGRhNmI4MGJlNjk0YWUzODljZDg0NTI5NjFkOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjdkZWNlMWI5N2IwMDc0MGQ1ZTg1NjE0NGE0ZDQwOTYyMDc3ZWRjYjUiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2016-04-16 11:49:16.892839+00
+\.
+
+
+--
+-- Data for Name: names; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY names (id, name, age) FROM stdin;
+1	Авдошина	20
+2	Горовой	27
+3	Яковлева	20
+4	Редькин	23
+5	12	13
+\.
+
+
+--
+-- Name: names_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('names_id_seq', 1, false);
+
+
+--
+-- Data for Name: oilbase_callback; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY oilbase_callback (id, name, phone, email, message) FROM stdin;
+1	Евгений Куралесов	+7-557-637-64-24	evg_kur@mail.ru	Хочу купить бензин
+2	Кравченко Дмитрий	+7-961-223-22-22	krav@gmail.com	Хочу купить керосина авиационного!
+\.
+
+
+--
+-- Name: oilbase_callback_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('oilbase_callback_id_seq', 2, true);
+
+
+--
+-- Data for Name: oilbase_categories; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY oilbase_categories (id, title, description) FROM stdin;
+1	Бензин	Горючая смесь лёгких углеводородов с температурой кипения от 33 до 205 °C (в зависимости от примесей). Плотность около 0,71 г/см³. Теплотворная способность примерно 10 200 ккал/кг (46 МДж/кг, 32,7 МДж/литр)
+2	Керосин	Горючая смесь жидких углеводородов (от C8 до C15) с температурой кипения в интервале 150—250 °C, прозрачная, бесцветная (или слегка желтоватая), слегка маслянистая на ощупь, получаемая путём прямой перегонки или ректификации нефти.
+3	Мазут	Нефтяные маслянистые остатки, получаемые после отгонки из нефти бензина, газолина, керосина.
+5	Масла	Масла — масла, применяемые для смазывания поршневых и роторных двигателей внутреннего сгорания.
+6	Нефть	Нефть — природная маслянистая горючая жидкость со специфическим запахом, состоящая в основном из сложной смеси углеводородов различной молекулярной массы и некоторых других химических соединений. Относится к каустобиолитам.
+7	ГСМ	Горюче-смазочные материалы (сокращённо ГСМ) — нефтепродукты, к которым относят различные виды горючего и смазки, в основном в применении к автотранспорту.
+4	Сжиженный газ	Природный газ (преимущественно метан, CH4), искусственно сжиженный путём охлаждения до −160 °C для удобства хранения или транспортировки. Для хозяйственного применения преобразуется в газообразное состояние на специальных регазификационных терминалах.
+\.
+
+
+--
+-- Name: oilbase_categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('oilbase_categories_id_seq', 7, true);
+
+
+--
+-- Data for Name: oilbase_contact; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY oilbase_contact (id, name, address, coordinats, site, email) FROM stdin;
+1	ООО "Нефтебаза Северная"	403343, Волгоградская область,  г. Михайловка, ул. Промышленная 14	50.067005, 43.251383	oil.ru	oil@north.ru
+\.
+
+
+--
+-- Name: oilbase_contact_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('oilbase_contact_id_seq', 1, true);
+
+
+--
+-- Data for Name: oilbase_deliver; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY oilbase_deliver (id, title, description, first_image, second_image, third_image) FROM stdin;
+1	Железнодорожный транспорт	\r\nFirst featurette heading. It'll blow your mind. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.Oh yeah, it's that good. See for yourself.\r\n\r\nDonec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.Oh yeah, it's that good. See for yourself.\r\n\r\nDonec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.	media/img/train1.jpg	media/img/train2.jpg	media/img/train3.jpg
+2	Автомобильный транспорт	\r\nFirst featurette heading. It'll blow your mind. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.Oh yeah, it's that good. See for yourself.\r\n\r\nDonec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.Oh yeah, it's that good. See for yourself.\r\n\r\nDonec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.	media/img/car1.jpg	media/img/car2.jpg	media/img/car3.jpg
+3	Морской транспорт	\r\nFirst featurette heading. It'll blow your mind. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.Oh yeah, it's that good. See for yourself.\r\n\r\nDonec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.Oh yeah, it's that good. See for yourself.\r\n\r\nDonec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.	media/img/ship1.jpg	media/img/ship2.jpg	media/img/ship3.jpg
+\.
+
+
+--
+-- Name: oilbase_deliver_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('oilbase_deliver_id_seq', 3, true);
+
+
+--
+-- Data for Name: oilbase_departaments; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY oilbase_departaments (id, title, worktime) FROM stdin;
+1	Администрация	{"ПН 8:00-17:00"," ВТ 8:00-17:00"," СР 8:00-17:00"," ЧТ 8:00-17:00"," ПТ 8:00-17:00"," СБ Выходной"," ВС Выходной"}
+2	Центр поставок	{"ПН 8:00-17:00"," ВТ 8:00-17:00"," СР 8:00-17:00"," ЧТ 8:00-17:00"," ПТ 8:00-17:00"," СБ Выходной"," ВС Выходной"}
+\.
+
+
+--
+-- Name: oilbase_departaments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('oilbase_departaments_id_seq', 2, true);
+
+
+--
+-- Data for Name: oilbase_dilers; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY oilbase_dilers (id, city, address, phone, coordinats, email) FROM stdin;
+1	Московская область	г. Москва	(84463) 1-23-45	55.76, 37.64	center@center.ru
+2	Волгоградская область	г. Волгоград, ул. Качинцев 24	(8442) 47-77-58	48.745750, 44.525905	vlg@mail.ru
+3	Рязанская область	г. Рязань, ул. Машиностроителей 25	(84463) 5-43-21	54.612605, 39.666824	rz@gmail.com
+4	Липецкая область	г. Липецк	(84463) 1-45-45	52.603987, 39.588229	lp@mail.ru
+5	Новосибирская область	г. Новосибирск ул. Петрова 23	+7 963 823 88 21	55.010251, 82.958437	newnorth@front.ru
+6	Архангельская область	г. Арханегельск	+7-911-911-11-99	64.545291, 40.556313	archangel@ar.ru
+7	Мурманская область	г. Мурманск	+7 963 823 88 32	68.963209, 33.080639	mrrr@mrrr.ru
+\.
+
+
+--
+-- Name: oilbase_dilers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('oilbase_dilers_id_seq', 7, true);
+
+
+--
+-- Data for Name: oilbase_mainpagecontent; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY oilbase_mainpagecontent (id, title, description, img) FROM stdin;
+1	Проверка качества.	Аттестованная лаборатория имеет все необходимые приборы для проведения исследований в объеме приема – сдаточных контрольных анализов и выдачи паспортов качества нефтебазы.	media/img/base1.jpg
+2	Хранение.	Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.	media/img/base2.jpg
+3	Oh yeah, it's that good. See for yourself.	Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.	media/img/base3.jpg
+\.
+
+
+--
+-- Name: oilbase_mainpagecontent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('oilbase_mainpagecontent_id_seq', 3, true);
+
+
+--
+-- Data for Name: oilbase_personal; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY oilbase_personal (id, name, post, phone, email, departament_id) FROM stdin;
+1	Ломоносов Михайло Петрович	Директор	(84463) 1-23-45	boss@oil.ru	1
+2	Генадьев Сергей Петрович	Заместитель	(84463) 4-45-45	miniboss@oil.ru	1
+3	Школьникова Ксения Никитьевна	Бухгалтер	(84463) 5-43-42	money@oil.ru	1
+4	Штайнер Генрих Рюрикович	Логистик	(84463) 1-23-44	no_logic@oil.ru	1
+5	Генадьев Сергей Петрович	Начальник центра	(8442) 47-77-58	send@oil.ru	2
+6	Алиев Петр Иванович	Секретарь центра	(84463) 5-43-55	help@oil.ru	2
+\.
+
+
+--
+-- Name: oilbase_personal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('oilbase_personal_id_seq', 6, true);
+
+
+--
+-- Data for Name: oilbase_products; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY oilbase_products (id, title, image, description, content, gost, docs, cost, category_id, send_type_id) FROM stdin;
+1	Реактивное топливо Т-6	media/img/default.png	Термостабильное топливо для реактивных двигателей	Цистерна	ГОСТ 12308-89	ЛУКОЙЛ-Пермнефтеоргсинтез (18.08.11)	450000	2	1
+2	Реактивное топливо ТС-1	media/img/tc1.png	Топливо для реактивных двигателей	Цистерна	ГОСТ 10227-86	Газпромнефть-Омский НПЗ (27.10.15)	550000	2	1
+3	Бензин АИ-92	media/img/ai-92.jpg	Бензин, применяемый в качестве топлива для карбюраторных автомобильных и мотоциклетных двигателей, а также двигателей другого назначения. 	Цистерна	ГОСТ 2084-77	Базис (15.01.15) 	200000	1	2
+4	Бензин АИ-95	media/img/ai-95.jpg	Бензин, применяемый в качестве топлива для карбюраторных автомобильных и мотоциклетных двигателей, а также двигателей другого назначения. 	Цистерна	ГОСТ 2084-77	Базис (15.01.15) 	210000	1	2
+5	Бензин АИ-98	media/img/ai-98.jpg	Бензин, применяемый в качестве топлива для карбюраторных автомобильных и мотоциклетных двигателей, а также двигателей другого назначения. 	Цистерна	ГОСТ 2084-77	Базис (15.01.15) 	250000	1	2
+6	Мазут М-100, вид I (S<0.5)	media/img/m100.jpg	Мазут, получаемый из продуктов переработки нефти, газоконденсатного сырья и предназначенный для транспортных средств, стационарных котельных и технологических установок.  Условная вязкость ВУ при 80 °С не более 16, массовая доля серы не более 0,5 %	Танкер	ГОСТ 10227-86	ТАИФ-НК (21.01.13)  	850000	3	3
+7	Мазут М-100, вид VI (2.5<S<3.0)	media/img/m100_jpZjPrE.jpg	Мазут, получаемый из продуктов переработки нефти, газоконденсатного сырья и предназначенный для транспортных средств, стационарных котельных и технологических установок.  Условная вязкость ВУ при 80 °С не более 16, массовая доля серы не более 0,5 %	Танкер	ГОСТ 10585–2013	Газпром Нефтехим Салават (20.10.14) 	750000	3	3
+8	Бутан технический (БТ) 	media/img/butane.png	Cжиженные углеводородные газы (технический пропан, технический бутан и их смесь), поставляемые на экспорт.	Цистерна	ГОСТ 21443-75	Московский НПЗ (20.06.03)  	450000	4	1
+9	Дистиллят нефтяной высокосернистый	media/img/default_pLNu04B.png	Предназначен для использования в качестве составляющего компонента котельного топлива	Цистерна	ТУ 0251-055-00151638-2003\t	ДИТЭКО ПК (19.01.16) 	235000	7	1
+10	Нефть сырая	media/img/oil.jpg	Нефть, подготовленная к поставке потребителю в соответствии с требованиями действующих нормативных и технических документов, принятых в установленном порядке.	Цистерна	ГОСТ Р 51858-2002	МТР (27.01.15) 	150000	6	2
+11	Нефть товарная	media/img/oil_ZdXqUWF.jpg	Нефть, подготовленная к поставке потребителю в соответствии с требованиями действующих нормативных и технических документов, принятых в установленном порядке.	Цистерна	ГОСТ Р 51858-2002	Татнефть (18.02.10)  	198000	6	1
+12	Масло гидравлическое АМГ-10	media/img/amg-10.jpg	Масло АМГ-10, предназначенное в качестве рабочей жидкости для гидравлических устройств.  Кинематическая вязкость при 50 °С, не менее 10 мм2/с	Канистра 15кг	ГОСТ 6794-75	АвиаТехМас (28.05.08)  	1400	5	2
+13	Масло компрессорное ХА-30	media/img/xa-30.jpg	Настоящий стандарт распространяется на масла, предназначенные для смазывания компрессоров холодильных машин, работающих на аммиаке, углекислоте и фреоне.  Кинематическая вязкость при 50°С, 28-32 мм2/с	Бочка 200л	ГОСТ 5546-86	Камский завод масел (07.03.08) 	150000	5	1
+\.
+
+
+--
+-- Name: oilbase_products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('oilbase_products_id_seq', 13, true);
+
+
+--
+-- Data for Name: oilbase_slogans; Type: TABLE DATA; Schema: public; Owner: Admin
+--
+
+COPY oilbase_slogans (id, title, description, page) FROM stdin;
+4	Доставка	Наша цель — гарантия качества и экономия вашего времени. Теперь нет необходимости искать стороннего перевозчика среди множества объявлений в газетах или Интернете. Доставку мы берем на себя.	Доставка
+3	Контроль	Единый круглосуточный центр управления операциями с топливом, который отслеживает работу топливных станций, система позволяет контролировать уровень топлива и при необходимости его закажет.	Главная
+1	Проверка качества	Аттестованная лаборатория имеет все необходимые приборы для проведения исследований в объеме приема – сдаточных контрольных анализов и выдачи паспортов качества нефтебазы.	Главная
+2	Хранение	562 резервуара позволяют хранить 562 сорта нефтепродуктов раздельно, по желанию хранителя.	Главная
+\.
+
+
+--
+-- Name: oilbase_slogans_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
+--
+
+SELECT pg_catalog.setval('oilbase_slogans_id_seq', 4, true);
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_1639bb84_uniq; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_1639bb84_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: oilbase_callback_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY oilbase_callback
+    ADD CONSTRAINT oilbase_callback_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oilbase_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY oilbase_categories
+    ADD CONSTRAINT oilbase_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oilbase_contact_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY oilbase_contact
+    ADD CONSTRAINT oilbase_contact_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oilbase_deliver_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY oilbase_deliver
+    ADD CONSTRAINT oilbase_deliver_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oilbase_departaments_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY oilbase_departaments
+    ADD CONSTRAINT oilbase_departaments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oilbase_dilers_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY oilbase_dilers
+    ADD CONSTRAINT oilbase_dilers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oilbase_mainpagecontent_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY oilbase_mainpagecontent
+    ADD CONSTRAINT oilbase_mainpagecontent_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oilbase_personal_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY oilbase_personal
+    ADD CONSTRAINT oilbase_personal_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oilbase_products_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY oilbase_products
+    ADD CONSTRAINT oilbase_products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oilbase_slogans_pkey; Type: CONSTRAINT; Schema: public; Owner: Admin; Tablespace: 
+--
+
+ALTER TABLE ONLY oilbase_slogans
+    ADD CONSTRAINT oilbase_slogans_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_126b60e1_like; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_126b60e1_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_0e939a4f; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_0e939a4f ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_8373b171; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_8373b171 ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_417f1b1c; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX auth_permission_417f1b1c ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_0e939a4f; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_0e939a4f ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_e8701ad4; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_e8701ad4 ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_8373b171; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_8373b171 ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_e8701ad4; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_e8701ad4 ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_1e9d9586_like; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX auth_user_username_1e9d9586_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_417f1b1c; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_417f1b1c ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_e8701ad4; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_e8701ad4 ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_de54fa62; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX django_session_de54fa62 ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_15cd9601_like; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_15cd9601_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: oilbase_personal_9d2bab12; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX oilbase_personal_9d2bab12 ON oilbase_personal USING btree (departament_id);
+
+
+--
+-- Name: oilbase_products_00f6ad26; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX oilbase_products_00f6ad26 ON oilbase_products USING btree (send_type_id);
+
+
+--
+-- Name: oilbase_products_b583a629; Type: INDEX; Schema: public; Owner: Admin; Tablespace: 
+--
+
+CREATE INDEX oilbase_products_b583a629 ON oilbase_products USING btree (category_id);
+
+
+--
+-- Name: auth_group_permiss_permission_id_3f9a0e9c_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permiss_permission_id_3f9a0e9c_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions_group_id_3fddc8ac_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_3fddc8ac_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permiss_content_type_id_6c9a3bef_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permiss_content_type_id_6c9a3bef_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_279db2d5_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_279db2d5_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_user_id_793dee7c_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_793dee7c_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_per_permission_id_74de0bbd_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_per_permission_id_74de0bbd_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions_user_id_796cb5b4_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_796cb5b4_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_content_type_id_41366d9f_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_content_type_id_41366d9f_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_user_id_271dcab0_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_271dcab0_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oilbase_pers_departament_id_3eb0a11a_fk_oilbase_departaments_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_personal
+    ADD CONSTRAINT oilbase_pers_departament_id_3eb0a11a_fk_oilbase_departaments_id FOREIGN KEY (departament_id) REFERENCES oilbase_departaments(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oilbase_products_category_id_1bc57b60_fk_oilbase_categories_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_products
+    ADD CONSTRAINT oilbase_products_category_id_1bc57b60_fk_oilbase_categories_id FOREIGN KEY (category_id) REFERENCES oilbase_categories(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oilbase_products_send_type_id_2e2e9c49_fk_oilbase_deliver_id; Type: FK CONSTRAINT; Schema: public; Owner: Admin
+--
+
+ALTER TABLE ONLY oilbase_products
+    ADD CONSTRAINT oilbase_products_send_type_id_2e2e9c49_fk_oilbase_deliver_id FOREIGN KEY (send_type_id) REFERENCES oilbase_deliver(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -25,7 +25,7 @@
                 <div class="panel-body">
                     <blockquote class="pull-right">
                         <div class="form-group js-map" data-coords="{{ el.coordinats }}" data-address="{{ el.address }}" data-zoom="9">
-                            <p>{{ el.address }}</p>
+                            <div>{{ el.address }}</div>
                         </div>
                     </blockquote>
                 </div>
@@ -34,8 +34,8 @@
                 <div class="panel-body">
                     <blockquote>
                         <div class="form-group">
-                            <p>Адрес электронной почты: {{ el.email }}</p>
-                            <p>Наш сайт: {{ el.site }}</p>
+                            <div>Адрес электронной почты: {{ el.email }}</div>
+                            <div>Наш сайт: {{ el.site }}</div>
                         </div>
                     </blockquote>
                 </div>
@@ -58,7 +58,9 @@
     				<blockquote class="pull-right">
     			{% endif %}
                             <h4 class="lead"><b>{{ el.title }}</b></h4>
-                            <div class="text-center">{{ el.worktime }}</div>
+                            {% for time in el.worktime %}
+                                <div class="text-center">{{ time }}</div>
+                            {% endfor %}
                     </blockquote>
                 </div>
             </div>
@@ -72,48 +74,76 @@
     <div class="row featurette">
         <h2 class="text-center">Центр поставок</h2>
             <div class="center-block">
-            	{% for el in send_persons %}
                 <div class="col-lg-6">
                     <div class="panel-body">
-                    {% if forloop.counter|divisibleby:2 %}
-                    	<blockquote>
-                    {% else %}
                         <blockquote class="pull-right">
-                   	{% endif %}
                             <dl class="dl-horizontal">
-                                <dt>{{ el.post }}</dt>
-                                <dd>{{ el.name }}</dd>
-                                <dd>Тел./факс: {{ el.phone }}</dd>
-                                <dd>E-mail: {{ el.email }}</dd>
+                                {% for el in send_persons %}
+                                    {% if forloop.counter|divisibleby:2 %}
+                                        <dt>{{ el.post }}</dt>
+                                        <dd>{{ el.name }}</dd>
+                                        <dd>Тел./факс: {{ el.phone }}</dd>
+                                        <dd>E-mail: {{ el.email }}</dd>
+                                    {% endif %}
+                                {% endfor %}
                             </dl>
                         </blockquote>
                     </div>
                 </div>
-                {% endfor %}
+                <div class="col-lg-6">
+                    <div class="panel-body">
+                        <blockquote>
+                            <dl class="dl-horizontal">
+                                {% for el in send_persons %}
+                                    {% if not forloop.counter|divisibleby:2 %}
+                                        <dt>{{ el.post }}</dt>
+                                        <dd>{{ el.name }}</dd>
+                                        <dd>Тел./факс: {{ el.phone }}</dd>
+                                        <dd>E-mail: {{ el.email }}</dd>
+                                    {% endif %}
+                                {% endfor %}
+                            </dl>
+                        </blockquote>
+                    </div>
+                </div>
             </div>
     </div>
 
     <div class="row featurette">
         <h2 class="text-center">Администрация</h2>
             <div class="center-block">
-            	{% for el in main_persons %}
                 <div class="col-lg-6">
                     <div class="panel-body">
-                    {% if forloop.counter|divisibleby:2 %}
-                    	<blockquote>
-                    {% else %}
                         <blockquote class="pull-right">
-                   	{% endif %}
                             <dl class="dl-horizontal">
-                                <dt>{{ el.post }}</dt>
-                                <dd>{{ el.name }}</dd>
-                                <dd>Тел./факс: {{ el.phone }}</dd>
-                                <dd>E-mail: {{ el.email }}</dd>
+                                {% for el in main_persons %}
+                                    {% if forloop.counter|divisibleby:2 %}
+                                        <dt>{{ el.post }}</dt>
+                                        <dd>{{ el.name }}</dd>
+                                        <dd>Тел./факс: {{ el.phone }}</dd>
+                                        <dd>E-mail: {{ el.email }}</dd>
+                                    {% endif %}
+                                {% endfor %}
                             </dl>
                         </blockquote>
                     </div>
                 </div>
-                {% endfor %}
+                <div class="col-lg-6">
+                    <div class="panel-body">
+                        <blockquote>
+                            <dl class="dl-horizontal">
+                                {% for el in main_persons %}
+                                    {% if not forloop.counter|divisibleby:2 %}
+                                        <dt>{{ el.post }}</dt>
+                                        <dd>{{ el.name }}</dd>
+                                        <dd>Тел./факс: {{ el.phone }}</dd>
+                                        <dd>E-mail: {{ el.email }}</dd>
+                                    {% endif %}
+                                {% endfor %}
+                            </dl>
+                        </blockquote>
+                    </div>
+                </div>
             </div>
     </div>
 
@@ -121,7 +151,7 @@
 
     <div class="row featurette">
     	<div class="modal-body row">
-            <form class="form-signin" method="POST">{% csrf_token %}
+            <form class="form-signin" method="POST" id="submit-form">{% csrf_token %}
                 <h2 class="text-center">Обратная связь</h2>
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -141,12 +171,13 @@
                     <div class="form-group">{{ form.message }}</div>
                     <div class="form-group">
                         <div class="input-group col-md-12">
-                            <button class="del-msg btn btn-inverse btn-lg btn-block" type="submit">Отправить</button>
+                            <button class="del-msg btn btn-inverse btn-lg btn-block" type="submit" id="submit-callback">Отправить</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
 </b>
 {% endblock content %}

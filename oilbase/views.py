@@ -20,8 +20,8 @@ def dilers_page(request):
 def contacts_page(request):
 	contacts = models.Contact.objects.all()
 	departs = models.Departaments.objects.all()
-	main_persons = models.Personal.objects.filter(departament='2')
-	send_persons = models.Personal.objects.filter(departament='1')
+	main_persons = models.Personal.objects.filter(departament='1')
+	send_persons = models.Personal.objects.filter(departament='2')
 	callback = models.CallBack.objects.all()
 
 	if request.method == "POST":

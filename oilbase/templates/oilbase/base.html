@@ -36,14 +36,14 @@
                     <li><a href="products.html">Керосин</a></li>
                     <li><a href="products.html">Бензин</a></li>
                     <li><a href="products.html">Мазут</a></li>
-                    <li><a href="products.html">Газ</a></li>
+                    <li><a href="products.html">Сжиженный газ</a></li>
                     <li><a href="products.html">Масло</a></li>
                     <li><a href="products.html">Нефть</a></li>
                     <li><a href="products.html">ГСМ</a></li>
                   </ul>
                 </li>
-                <li><a href="{% url 'delivery_page' %}">Поставщики</a></li>
-                <li><a href="{% url 'dilers_page' %}">Доставка</a></li>
+                <li><a href="{% url 'dilers_page' %}">Дилеры</a></li>
+                <li><a href="{% url 'delivery_page' %}">Доставка</a></li>
                 <li><a href="{% url 'contacts_page' %}">Контакты</a></li>
               </ul>
             </div>
@@ -69,19 +69,6 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/holder.min.js' %}"></script>
     <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
-    
-    <script>
-    $(document).ready(function() {
-        // messages timeout for 10 sec 
-        setTimeout(function() {
-            $('.message').fadeOut('slow');
-        }, 10000); // <-- time in milliseconds, 1000 =  1 sec
-
-        // delete message
-        $('.del-msg').live('click',function(){
-            $('.del-msg').parent().attr('style', 'display:none;');
-        })
-    });
-</script>
+    <script src="{% static 'js/modal.js' %}"type="text/javascript"></script>
   </body>
 </html>
