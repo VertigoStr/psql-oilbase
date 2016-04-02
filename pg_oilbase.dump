@@ -1096,6 +1096,9 @@ COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, cha
 50	2016-04-02 12:41:37.257583+00	11	Products object	1		10	1
 51	2016-04-02 12:43:42.351582+00	12	Products object	1		10	1
 52	2016-04-02 12:45:42.583697+00	13	Products object	1		10	1
+53	2016-04-02 12:57:34.148666+00	1	Contact object	2	Изменен address и coordinats.	15	1
+54	2016-04-02 12:59:53.628369+00	1	Contact object	2	Изменен address и coordinats.	15	1
+55	2016-04-02 13:00:35.111632+00	1	Contact object	2	Изменен address.	15	1
 \.
 
 
@@ -1103,7 +1106,7 @@ COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, cha
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Admin
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 52, true);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 55, true);
 
 
 --
@@ -1237,7 +1240,7 @@ SELECT pg_catalog.setval('oilbase_categories_id_seq', 7, true);
 --
 
 COPY oilbase_contact (id, name, address, coordinats, site, email) FROM stdin;
-1	ООО "Нефтебаза Северная"	403343, Волгоградская область,  г. Михайловка, ул. Промышленная 14	50.067005, 43.251383	oil.ru	oil@north.ru
+1	ООО "Нефтебаза Северная"	444444, Республика Саха, Мирнийский улус, пос. Чернышевский	63.026469, 112.487410	oil.ru	oil@north.ru
 \.
 
 
