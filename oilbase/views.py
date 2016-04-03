@@ -33,7 +33,7 @@ def contacts_page(request):
 			post.phone =  form.cleaned_data['phone']
 			post.message =  form.cleaned_data['message']
 			post.save()
-			return HttpResponseRedirect('contacts')
+			return HttpResponseRedirect('')
 	else:
 		form = CallBackForm()
 
