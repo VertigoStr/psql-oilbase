@@ -14,7 +14,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="dropdown">
+            {% url 'products_page' as url %}
+            {% if url in path %}<li class="dropdown active">{% else %}<li class="dropdown">{% endif %}
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Продукция<span class="caret"></span></a>
               <ul class="dropdown-menu">
               {% for el in categories %}
@@ -22,9 +23,12 @@
               {% endfor %}
               </ul>
             </li>
-            <li><a href="{% url 'dilers_page' %}">Дилеры</a></li>
-            <li><a href="{% url 'delivery_page' %}">Доставка</a></li>
-            <li><a href="{% url 'contacts_page' %}">Контакты</a></li>
+            {% url 'dilers_page' as url %}
+            {% if path == url %}<li class="active">{% else %} <li> {% endif %}<a href="{% url 'dilers_page' %}">Дилеры</a></li>
+            {% url 'delivery_page' as url %}
+            {% if path == url %}<li class="active">{% else %} <li> {% endif %}<a href="{% url 'delivery_page' %}">Доставка</a></li>
+            {% url 'contacts_page' as url %}
+            {% if path == url %}<li class="active">{% else %} <li> {% endif %}<a href="{% url 'contacts_page' %}">Контакты</a></li>
           </ul>
         </div>
       </div>

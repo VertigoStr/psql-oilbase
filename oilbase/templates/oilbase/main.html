@@ -48,7 +48,7 @@
     		<div class="col-md-7">
     	{% endif %}
       		<h2 class="featurette-heading">{{ el.title }}</h2>
-      		<p class="lead">{{ el.description }}</p>
+      		<p class="lead">{% autoescape off %}{{ el.description }}{% endautoescape %}</p>
     	</div>
     	{% if forloop.counter|divisibleby:2 %}
 			<div class="col-md-5 col-md-pull-7">

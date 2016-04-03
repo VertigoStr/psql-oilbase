@@ -6,9 +6,9 @@ register = template.Library()
 
 
 @register.inclusion_tag('oilbase/menu.html')
-def menu():
+def menu(request):
 	categories = models.Categories.objects.all().order_by("id")
-	return {'categories':categories}
+	return {'categories':categories, 'path':request.path}
 
 @register.inclusion_tag('oilbase/footer.html')
 def footer():

@@ -34,7 +34,7 @@
                         <img src="{{ el.third_image.url }}" class="img-rounded" alt="Cinque Terre" width="304" height="236"> 
                     </div>
                 </div>
-                <div class="text-left">{{ el.description }}</div>
+                <div class="text-left">{% autoescape off %}{{ el.description }}{% endautoescape %}</div>
             </div>
     </div>
     <hr class="featurette-divider">
