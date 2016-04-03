@@ -4,7 +4,7 @@ from .forms import CallBackForm
 
 # Create your views here.
 def main_page(request):
-	content = models.MainPageContent.objects.all()
+	content = models.MainPageContent.objects.all().order_by("id")
 	carousel = models.Slogans.objects.filter(page='Главная')
 	return render(request, 'oilbase/main.html', {'content':content, 'carousel':carousel})
 
