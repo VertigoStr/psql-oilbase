@@ -5,7 +5,7 @@ psql-oilbase is a simple site that was made on django 1.8 with PostgreSQL.
 # Install
 - Install [PostgreSQL](http://www.postgresql.org/download/)
 - Install [Python](https://www.python.org/downloads/)
-- Create virual enviroment: 
+- Create virtual enviroment: 
     - python -m venv myvenv
 - Install Django: 
     - run virtual enviroment
